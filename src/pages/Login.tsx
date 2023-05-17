@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
-// import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 export interface User {
     name: string;
@@ -12,13 +12,13 @@ export interface User {
 }
 
 const Login = (): JSX.Element => {
-    // const {name, age} = props;/
     const [email, setEmail] = useState<string | null>();
     const [password, setPassword] = useState<string | null>();
 
     return (
 
-        <div style={{
+        <div 
+            style={{
                 margin: "auto", 
                 display: "flex", 
                 flexDirection: "column", 
@@ -42,7 +42,7 @@ const Login = (): JSX.Element => {
                 
                 <Button variant="outlined" style={{marginTop: "30px", paddingBottom: "15px", paddingTop: "15px"}} color="primary" onClick={() => window.alert(`${email} & ${password}`)}>Login</Button>
             </Stack>
-            <p style={{textAlign: "center"}}>Don't have an account yet? <a>Sign Up</a></p>
+            <p style={{textAlign: "center"}}>Don't have an account yet? <Link to="/register"><a>Sign Up</a></Link></p>
         </div>
     );
 };
