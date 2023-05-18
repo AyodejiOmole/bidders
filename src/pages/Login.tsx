@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { auth } from '../firebase.config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export interface User {
     name: string;
@@ -12,8 +14,27 @@ export interface User {
 }
 
 const Login = (): JSX.Element => {
-    const [email, setEmail] = useState<string | null>();
-    const [password, setPassword] = useState<string | null>();
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    const loginUser = () => {
+        setIsLoading((prev) => prev = !prev);
+        signInWithEmailAndPassword(auth, email, password) 
+        .then((userCredential) => {
+            // Immediately sets a local storage of the id of the user. This is to enable the dashboard retrieve the details of a particular user using their id that we can now get from local storage.
+            window.localStorage.setItem("id", userCredential.user.uid);
+
+            console.log(userCredential.user.uid);            
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            alert(errorMessage);
+        })
+        .finally(() => {
+            setIsLoading((prev) => prev = !prev)
+        });
+    }
 
     return (
 
@@ -40,9 +61,15 @@ const Login = (): JSX.Element => {
                     <TextField id="outlined-basic" label="Password" variant="outlined" value={password} onChange={(event) => setPassword(event.target.value)} />
                 </Stack>
                 
-                <Button variant="outlined" style={{marginTop: "30px", paddingBottom: "15px", paddingTop: "15px"}} color="primary" onClick={() => window.alert(`${email} & ${password}`)}>Login</Button>
+                <Button 
+                    variant="outlined" 
+                    style={{marginTop: "30px", paddingBottom: "15px", paddingTop: "15px"}} 
+                    color="primary" 
+                    onClick={() => loginUser()}>
+                        {isLoading ? "Processing..." : "Login"}
+                </Button>
             </Stack>
-            <p style={{textAlign: "center"}}>Don't have an account yet? <Link to="/register"><a>Sign Up</a></Link></p>
+            <p style={{textAlign: "center"}}>Don't have an account yet? <Link to="/register">Sign Up</Link></p>
         </div>
     );
 };
