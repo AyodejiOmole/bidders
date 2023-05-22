@@ -37,18 +37,15 @@ const Login = (): JSX.Element => {
     }
 
     return (
-
-        <div 
-            style={{
-                margin: "auto", 
-                display: "flex", 
-                flexDirection: "column", 
-                justifyContent: "center", 
-                alignContent: "center",
-                width: "40%",
-                marginTop: "170px",
-                
-            }}>
+        <div style={{
+            margin: "auto", 
+            display: "flex", 
+            flexDirection: "column",
+            justifyContent: "center",
+            alignContent: "center",
+            width: "40%",
+            marginTop: "170px",
+        }}>
             <Stack spacing={2}>
 
                 <Stack>
