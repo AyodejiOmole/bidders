@@ -13,19 +13,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from '../firebase.config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Ayodeji Omole
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '../components/Copyright';
 
 export default function Login() {
     const [email, setEmail] = useState<string>("");
@@ -104,7 +92,7 @@ export default function Login() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ mt: 3, mb: 2, py: 2 }}
                     >
                         {isLoading ? "Processing..." : "Sign In"}
                     </Button>

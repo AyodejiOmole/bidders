@@ -22,13 +22,13 @@ export const mainListItems = (
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="Open bids" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Post Bid" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
@@ -48,7 +48,7 @@ export const mainListItems = (
 export const secondaryListItems = (
   <React.Fragment>
     <ListSubheader component="div" inset>
-      Saved reports
+      Bid History
     </ListSubheader>
     <ListItemButton>
       <ListItemIcon>
