@@ -54,7 +54,7 @@ export const secondaryListItems = (
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Current month"/>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

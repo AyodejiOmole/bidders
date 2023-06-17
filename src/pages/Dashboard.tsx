@@ -10,30 +10,24 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../components/listItems';
+import MainDash from '../components/MainDash';
+import PostBid from '../components/PostBid';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LayersIcon from '@mui/icons-material/Layers';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
-
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth: number = 240;
 
@@ -90,9 +84,15 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
+  const [activeComponent, setActiveComponent] = React.useState([<MainDash />]);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  function showActiveComponent(comp:JSX.Element) {
+    setActiveComponent([comp]);
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -147,11 +147,72 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {/* {mainListItems} */}
+            <React.Fragment>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Open bids" />
+              </ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  showActiveComponent(<PostBid />);
+                }} 
+              >
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Create Auction" />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <BarChartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Reports" />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <LayersIcon />
+                </ListItemIcon>
+                <ListItemText primary="Integrations" />
+              </ListItemButton>
+            </React.Fragment>
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            {/* {secondaryListItems} */}
+            <React.Fragment>
+              <ListSubheader component="div" inset>
+                Bid History
+              </ListSubheader>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Current month"/>
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Last quarter" />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Year-end sale" />
+              </ListItemButton>
+            </React.Fragment>
           </List>
         </Drawer>
+
         <Box
           component="main"
           sx={{
@@ -164,44 +225,7 @@ export default function Dashboard() {
             overflow: 'auto',
           }}
         >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  {/* <Chart /> */}
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  {/* <Deposits /> */}
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  {/* <Orders /> */}
-                </Paper>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container>
+          <div>{activeComponent[0]}</div>
         </Box>
       </Box>
     </ThemeProvider>

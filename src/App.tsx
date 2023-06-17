@@ -4,13 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import SignUp from './pages/SignUp';
 
+
 function App() {
 
   return (
-    <>
-      {/* <div className="card">
-        
-      </div> */}
+    <>      
       <Router>
         <Routes>
           <Route path="/">
